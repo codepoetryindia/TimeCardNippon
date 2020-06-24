@@ -1,0 +1,47 @@
+page-punch-in-out-summary {
+
+    .ios, .md {
+        
+           page-home {
+        
+               button {
+                   align-items: baseline;
+               }
+        
+           }
+        
+       }
+
+       job-cards{
+        // width:100% !important;
+        // margin: 5px 0 !important;
+        margin-top: 0;
+        padding: 5px;
+        border-radius: 8px;
+        ion-card-header{
+            padding: 5px;
+            font-size: 13px;
+            font-weight: bold;
+            // border-bottom: 1px solid #bbb;
+        }
+        ion-list{
+            button{
+                min-height:auto !important;
+                padding-left: 5px;
+                font-size: 12px;
+                margin-bottom: 5px;
+                border: 0 !important;
+                .item-inner{
+                    padding-right: 10px !important;
+                    background: none !important;
+                }
+                ion-label{
+                    margin:0 !important;
+                }
+                div[item-end]{
+                    margin:0 !important;
+                }
+            }
+        }
+    }
+}

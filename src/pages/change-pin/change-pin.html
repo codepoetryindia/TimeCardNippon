@@ -1,0 +1,48 @@
+<!--
+  Generated template for the ChangePinPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title text-right>
+      <img width="125" src="assets/imgs/logo-nippon.png" />
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+
+
+
+  <form [formGroup]="myForm" (ngSubmit)="ChangePin(myForm)" >
+    <!--<img src="./assets/images/wood-logo.png">-->
+    <ion-list >
+
+      <ion-item>
+        <ion-label floating>Current PIN</ion-label>
+        <ion-input type="password" maxlength="4" minlength="4" formControlName="CurrentPIN" name="PIN"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Create PIN</ion-label>
+        <ion-input type="password" maxlength="4" minlength="4" formControlName="PIN" name="PIN"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Re-enter PIN</ion-label>
+        <ion-input type="password" maxlength="4" minlength="4" formControlName="ReEnteredPIN" name="ReEnteredPIN"></ion-input>
+      </ion-item>
+
+
+
+    </ion-list>
+
+    <div >
+      <button ion-button block [disabled]="!myForm.valid">Update Pin</button>
+    </div>
+  </form>
+</ion-content>

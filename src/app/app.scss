@@ -1,0 +1,108 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+ion-header{
+    .toolbar-background,.toolbar-background-md,.toolbar-background-ios{
+        background:#fff !important
+        
+    }
+    button{
+        color:#09428f !important;
+    }
+    // .toolbar-title
+    // {
+    //     color:#fff;
+    // }
+    // img {
+    //     float: right;
+    //     text-align: right;
+    // }
+}
+ion-title.title.title-ios {
+    padding: 0 15px !important;
+}
+.md .menu-inner,.ios .menu-inner,.menu-inner {
+    background: transparent !important;
+    background-color: transparent;
+}
+ion-content{
+
+    background: url("../assets/imgs/background-nippon.png");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    background-color:#09428f;
+
+}
+
+.sub-head
+{
+    margin: -16px -16px 16px;
+    text-align: center;
+    left: 0;
+    top: 0;
+    background: #fff;
+    padding: 5px;
+    color: #062146;
+    font-weight: 600;
+    font-size: 20px;
+}
+.menu-list button{
+    background:transparent;
+    color:#fff;
+}
+
+.my-report-card{
+    width:100% !important;
+    margin:0px 0px 10px !important;
+    ion-card-header{
+        box-shadow: 0 1px 2px #00000070;
+    }
+    ion-list{
+        margin:2px 0;
+        .item-inner{
+            padding-right:16px !important;
+            background-image: none !important;
+            ion-label{
+                font-size: 14px;
+            }
+        }
+    }
+}
+.daily-report{
+    div[item-start]{
+        text-align: center;
+        width: 60px;
+        font-size:12px;
+    }
+    .item-inner
+    {
+        padding-left: 10px;
+        border-left: 1px solid #7979796b;
+    }
+}
+
+div.indicator {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    top: 12px;
+    right: 12px;
+}
+
+ion-input {
+    color: #fff;
+}

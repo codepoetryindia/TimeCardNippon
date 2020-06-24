@@ -1,0 +1,83 @@
+<!--
+  Generated template for the EditPunchInOutPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>EditPunchInOutPage</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form *ngIf="PunchDetail && !IsNewEntry1 && !IsInt">
+
+    <ion-list>
+        <div *ngIf="PunchDetail.PunchOutDateTime!=PunchDetail.PunchInDateTime">
+      <ion-item>
+        Punch In Date : </ion-item>
+      <ion-item> {{ PunchDetail.PunchInDate }}
+
+      </ion-item>
+      <ion-item>
+        Punch In Time :  </ion-item>
+      <ion-item>
+          <!-- <ion-datetime displayFormat="hh:mm:ss" name="PunchInTime" 
+          
+          [(ngModel)]="PunchDetail.PunchInDateTime"></ion-datetime> -->
+          {{PunchDetail.PunchInDateTime | date : 'hh:mm'}}
+      </ion-item>
+      <ion-item>
+          Punch In Location :  </ion-item>
+      <ion-item>
+         
+          {{PunchDetail.PunchInLocation}}
+      </ion-item>
+      <ion-item>
+        Punch Out Date : </ion-item>
+      <ion-item> {{ PunchDetail.PunchOutDate }}
+      </ion-item>
+
+      <ion-item>
+        Punch Out Time : </ion-item>
+      <ion-item>
+        <!-- <ion-datetime displayFormat="hh:mm:ss" name="PunchOutTime" [(ngModel)]="PunchDetail.PunchOutDateTime"></ion-datetime> -->
+        {{PunchDetail.PunchOutDateTime| date : 'hh:mm'}}
+      </ion-item>
+      <ion-item>
+          Punch out Location :  </ion-item>
+      <ion-item>
+         
+          {{PunchDetail.PunchOutLocation}}
+      </ion-item>
+      </div>
+      <ion-item>
+         Day Duration Type : 
+         <ion-item> <ion-select name="DayList" [(ngModel)]="PunchDetail.DayStatus_Id">
+          <ion-option *ngFor="let key of DayTypeList"  value="{{key.DayStatus_Id}}">{{key.DayStatusType}}  </ion-option>
+        </ion-select> </ion-item>
+      </ion-item>
+
+      <button ion-button type="submit" block  (click)="Update()">Update</button>
+    </ion-list>
+  </form>
+  <form *ngIf="IsNewEntry1 || IsInt">
+
+    <ion-list>
+      
+      <ion-item>
+         Day Duration Type : 
+         <ion-item> <ion-select name="DayList" [(ngModel)]="PunchDetail.DayStatus_Id">
+          <ion-option *ngFor="let key of DayTypeList"  value="{{key.DayStatus_Id}}">{{key.DayStatusType}}  </ion-option>
+        </ion-select> </ion-item>
+      </ion-item>
+
+      <button ion-button type="submit" block  (click)="Update()">Update</button>
+    </ion-list>
+  </form>
+</ion-content>

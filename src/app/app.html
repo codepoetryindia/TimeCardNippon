@@ -1,0 +1,62 @@
+<ion-menu [content]="content" persistent="true" id='sideMenu'>
+  <!-- 
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        
+        <span style="display: block;">Welcome : {{ EmployeeName }}</span></ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <ion-content>
+    <ion-list class="menu-list">
+      <button menuClose ion-item (click)="NavigateToHomePage()">
+
+        <ion-icon ios="ios-home" md="md-home" item-left></ion-icon>Home
+
+      </button>
+      <!-- <button menuClose ion-item   (click)="NavigateToDashboard()">
+     
+            <ion-icon ios="ios-desktop" md="md-desktop" item-left></ion-icon>DashBoard
+         
+      </button> -->
+      <!-- <button menuClose ion-item (click)="MyReports()">
+          <ion-icon ios="ios-stats" md="md-stats" item-left></ion-icon> 
+          y Reports
+          My daily report
+    
+      </button>
+      <button menuClose ion-item (click)="NavigateToMonthlyReport()">
+              <ion-icon ios="ios-stats" md="md-stats" item-left></ion-icon> My Monthly summary
+        
+      </button>
+      <button menuClose ion-item (click)="NavigateToDailyReport()">
+          <ion-icon ios="ios-stats" md="md-stats" item-left></ion-icon> My Team Reports
+    
+      </button> -->
+      <!-- <button menuClose ion-item (click)="NavigateToChangePasswordScreen()">
+          <ion-icon ios="ios-lock" md="md-lock" item-left></ion-icon>Change Password
+    
+      </button> -->
+      <button menuClose ion-item (click)="NavigateToChangePinScreen()">
+        <ion-icon ios="ios-lock" md="md-lock" item-left></ion-icon> Change Pin
+
+      </button>
+      <!-- <button menuClose ion-item (click)="NavigateToGuideLine()">
+        <ion-icon ios="ios-lock" md="md-lock" item-left></ion-icon> GuideLine
+  
+    </button> -->
+      <!-- <button menuClose ion-item (click)="logout()">
+            <ion-icon ios="ios-power" md="md-power" item-left></ion-icon> Logout
+
+      </button> -->
+    </ion-list>
+  </ion-content>
+
+  <ion-footer style="text-align: center;padding: 15px;color : white;">
+    3.0.0
+  </ion-footer>
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

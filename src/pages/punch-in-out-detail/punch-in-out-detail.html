@@ -1,0 +1,418 @@
+<!--
+  Generated template for the PunchInOutDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      My Daily Report
+      <!-- Punch In/out Detail *ngIf="!ShowSideMenuIcon"-->
+    </ion-title>
+  </ion-navbar>
+  <!-- <ion-navbar *ngIf="ShowSideMenuIcon">
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-right>
+      <img width="125" src="assets/imgs/logo-nippon.png" />
+    </ion-title>
+  </ion-navbar> -->
+</ion-header>
+
+<ion-content padding>
+  <!-- <div class="sub-head" *ngIf="ShowSideMenuIcon">
+    My Report
+  </div> -->
+
+  <div
+    class="sub-head"
+    style="text-transform: capitalize;"
+    *ngIf="!ShowSideMenuIcon"
+  >
+    {{ EmpCode }} {{ EmpName }}
+  </div>
+
+  <div style="padding: 10px;background: #fff;">
+    <span
+      style="padding: 0px 8px;background: #ebcc1c;margin-right: 8px;"
+    ></span>
+    - Holiday
+  </div>
+
+  <div style="background: #fff;margin-bottom:5px;">
+    <ion-segment color="primary" [(ngModel)]="TypeOfCycle">
+      <ion-segment-button (click)="SelectCycle(2)" value="current">
+        Current cycle
+      </ion-segment-button>
+
+      <ion-segment-button value="HALF" (click)="SelectCycle(1)" value="past">
+        Past cycle
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div style="background: #fff;">
+    <ion-segment
+      [(ngModel)]="TypeOfShit"
+      (ionChange)="GetPunchList(TypeOfShit)"
+      color="primary"
+    >
+      <ion-segment-button value="ALL">
+        All
+      </ion-segment-button>
+      <ion-segment-button value="FULL">
+        Full Day
+      </ion-segment-button>
+      <ion-segment-button value="HALF">
+        Half Day
+      </ion-segment-button>
+      <ion-segment-button value="NON">
+        Non Working Day
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="TypeOfShit">
+    <ion-list class="daily-report" *ngSwitchCase="'ALL'">
+      <ion-item
+        *ngFor="let pt of PunchInList"
+        [class.NonWorking]="!pt.IsWorkingDay"
+      >
+        <div item-start>
+          <b>
+            {{pt.PunchInDateTime | date}}
+          </b>
+        </div>
+        <div
+          *ngIf="pt.TypeOfShift != 'International Travel' && pt.TypeOfShift != 'Leave'"
+        >
+          <div *ngIf="!pt.IsNewEntry">
+            <div *ngIf="pt.PunchOutDateTime!=pt.PunchInDateTime">
+              <h2>
+                Punch In: <br /><b
+                  >{{ pt.PunchInLocation}} - {{pt.PunchInDateTime | date :
+                  'HH:mm' }}</b
+                >
+                <ion-icon
+                  *ngIf="pt.PunchInLocation_Detail && showOtherPunchInDetails"
+                  (click)="ShowAddressInfo(pt.PunchInLocation_Detail)"
+                  ios="ios-information-circle"
+                  md="md-information-circle"
+                ></ion-icon>
+              </h2>
+              <h2>
+                Punch Out: <br /><b>
+                  {{pt.PunchOutLocation }} - {{pt.PunchOutDateTime | date :
+                  'HH:mm'}}</b
+                >
+                <ion-icon
+                  (click)="ShowAddressInfo(pt.PunchOutLocation_Detail)"
+                  *ngIf="pt.PunchOutLocation_Detail && showOtherPunchInDetails"
+                  ios="ios-information-circle"
+                  md="md-information-circle"
+                ></ion-icon>
+              </h2>
+              <p>
+                Hours Worked :
+                <b
+                  >{{ pt.NumberOfWorkingHour }} hr {{ pt.NumberOfWorkingMin }}
+                  min</b
+                >
+              </p>
+            </div>
+            <div *ngIf="pt.PunchOutDateTime==pt.PunchInDateTime">
+              <p><b>Absent</b></p>
+            </div>
+          </div>
+
+          <div *ngIf="pt.TypeOfShift == 'Absent' && pt.IsNewEntry">
+            <p><b>Absent</b></p>
+          </div>
+          <div *ngIf="pt.TypeOfShift == 'Holiday'">
+            <p><b>Holiday</b></p>
+          </div>
+
+          <div
+            class="indicator"
+            *ngIf="pt.TypeOfShift == 'Full'"
+            style="color: green;"
+          >
+            FD
+          </div>
+          <div
+            class="indicator"
+            *ngIf="pt.TypeOfShift == 'Half'"
+            style="color:brown"
+          >
+            HD
+          </div>
+          <div
+            class="indicator"
+            *ngIf="pt.TypeOfShift == 'Absent'"
+            style="color: red;"
+          >
+            A
+          </div>
+        </div>
+
+        <div
+          *ngIf="pt.TypeOfShift == 'International Travel' || pt.TypeOfShift == 'Leave'"
+        >
+          <p>
+            <b>{{pt.TypeOfShift=='Leave'?'Leave':'International Travel'}}</b>
+          </p>
+          <div class="indicator" style="color: green;">
+            {{pt.TypeOfShift=='Leave'?'L':'IT'}}
+          </div>
+        </div>
+        <!-- <ion-icon name="create" (click)="EditPunchIn(pt)" *ngIf="!ShowSideMenuIcon"></ion-icon> -->
+        <!-- <span (click)="EditPunchIn(pt)" *ngIf="!ShowSideMenuIcon">Edit</span> -->
+
+        <span
+          (click)="EditPunchIn(pt)"
+          *ngIf="!ShowSideMenuIcon && pt.IsShowEditButton"
+          ><ion-icon name="create"></ion-icon>Edit
+        </span>
+        <!-- <button ion-button clear item-end>View</button> -->
+      </ion-item>
+      <ion-item *ngIf="TodayPunchInDetails" [class.NonWorking]="!IsWorkingDate">
+        <div item-start>
+          <b>
+            Today
+          </b>
+        </div>
+        <div>
+          <h2>
+            Punch In: <br /><b
+              >{{ TodayPunchInDetails.PunchInLocation}} -
+              {{TodayPunchInDetails.PunchedDateTime | date : 'HH:mm' }}</b
+            >
+            <ion-icon
+              (click)="ShowAddressInfo(TodayPunchInDetails.PunchInLocation_Detail)"
+              *ngIf="TodayPunchInDetails.PunchInLocation_Detail && showOtherPunchInDetails"
+              ios="ios-information-circle"
+              md="md-information-circle"
+            >
+            </ion-icon>
+          </h2>
+        </div>
+      </ion-item>
+      <ion-item *ngIf="PunchInList && PunchInList.length == 0" text-center>
+        No Data to display.
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="daily-report" *ngSwitchCase="'FULL'">
+      <ion-item *ngFor="let pt of PunchInList">
+        <div item-start>
+          <b> {{pt.PunchInDateTime | date}}</b>
+        </div>
+        <div *ngIf="pt.TypeOfShift != 'International Travel'">
+          <h2>
+            Punch In: <br /><b
+              >{{ pt.PunchInLocation}} - {{pt.PunchInDateTime | date : 'HH:mm'
+              }}</b
+            >
+            <ion-icon
+              *ngIf="pt.PunchInLocation_Detail && showOtherPunchInDetails"
+              (click)="ShowAddressInfo(pt.PunchInLocation_Detail)"
+              ios="ios-information-circle"
+              md="md-information-circle"
+            ></ion-icon>
+          </h2>
+          <h2>
+            Punch Out: <br /><b>
+              {{pt.PunchOutLocation }} - {{pt.PunchOutDateTime | date :
+              'HH:mm'}}</b
+            >
+            <ion-icon
+              *ngIf="pt.PunchOutLocation_Detail && showOtherPunchInDetails"
+              (click)="ShowAddressInfo(pt.PunchOutLocation_Detail)"
+              ios="ios-information-circle"
+              md="md-information-circle"
+            ></ion-icon>
+          </h2>
+          <p>
+            Hours Worked :
+            <b
+              >{{ pt.NumberOfWorkingHour }} hr {{ pt.NumberOfWorkingMin }}
+              min</b
+            >
+          </p>
+
+          <div
+            class="indicator"
+            *ngIf="pt.TypeOfShift == 'Full'"
+            style="color: green;"
+          >
+            FD
+          </div>
+        </div>
+
+        <div *ngIf="pt.TypeOfShift == 'International Travel'">
+          <p><b>International Travel</b></p>
+          <div class="indicator" style="color: green;">FD</div>
+        </div>
+        <!-- <span (click)="EditPunchIn(pt)" *ngIf="!ShowSideMenuIcon">Edit</span> -->
+        <!-- <button ion-button clear item-end>View</button> -->
+
+        <span
+          (click)="EditPunchIn(pt)"
+          *ngIf="!ShowSideMenuIcon && pt.IsShowEditButton"
+          ><ion-icon name="create"></ion-icon>Edit
+        </span>
+      </ion-item>
+      <ion-item *ngIf="PunchInList && PunchInList.length == 0" text-center>
+        No Data to display.
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="daily-report" *ngSwitchCase="'HALF'">
+      <ion-item *ngFor="let pt of PunchInList">
+        <div item-start>
+          <b> {{pt.PunchInDateTime | date}}</b>
+        </div>
+        <h2>
+          Punch In: <br /><b
+            >{{ pt.PunchInLocation}} - {{pt.PunchInDateTime | date :
+            'HH:mm'}}</b
+          >
+          <ion-icon
+            *ngIf="pt.PunchInLocation_Detail && showOtherPunchInDetails"
+            (click)="ShowAddressInfo(pt.PunchInLocation_Detail)"
+            ios="ios-information-circle"
+            md="md-information-circle"
+          ></ion-icon>
+        </h2>
+        <h2>
+          Punch Out: <br /><b>
+            {{pt.PunchOutLocation }} - {{pt.PunchOutDateTime | date :
+            'HH:mm'}}</b
+          >
+          <ion-icon
+            *ngIf="pt.PunchOutLocation_Detail && showOtherPunchInDetails"
+            (click)="ShowAddressInfo(pt.PunchOutLocation_Detail)"
+            ios="ios-information-circle"
+            md="md-information-circle"
+          ></ion-icon>
+        </h2>
+        <p>
+          Hours Worked :
+          <b>{{ pt.NumberOfWorkingHour }} hr {{ pt.NumberOfWorkingMin }} min</b>
+        </p>
+
+        <div class="indicator" style="color:brown">HD</div>
+        <!-- <span (click)="EditPunchIn(pt)" *ngIf="!ShowSideMenuIcon">Edit</span> -->
+        <!-- <button ion-button clear item-end>View</button> -->
+        <span
+          (click)="EditPunchIn(pt)"
+          *ngIf="!ShowSideMenuIcon && PunchInList[0].IsShowEditButton"
+          ><ion-icon name="create"></ion-icon>Edit
+        </span>
+      </ion-item>
+      <ion-item *ngIf="PunchInList && PunchInList.length == 0" text-center>
+        No Data to display.
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="daily-report" *ngSwitchCase="'NON'">
+      <ion-item
+        *ngFor="let pt of PunchInList"
+        [class.NonWorking]="!pt.IsWorkingDay"
+      >
+        <div item-start>
+          <b>
+            {{pt.PunchInDateTime | date}}
+          </b>
+        </div>
+        <div *ngIf="pt.TypeOfShift != 'International Travel'">
+          <div *ngIf="!pt.IsNewEntry">
+            <div *ngIf="pt.PunchOutDateTime!=pt.PunchInDateTime">
+              <h2>
+                Punch In: <br /><b
+                  >{{ pt.PunchInLocation}} - {{pt.PunchInDateTime | date :
+                  'HH:mm' }}</b
+                >
+                <ion-icon
+                  *ngIf="pt.PunchInLocation_Detail && showOtherPunchInDetails"
+                  (click)="ShowAddressInfo(pt.PunchInLocation_Detail)"
+                  ios="ios-information-circle"
+                  md="md-information-circle"
+                ></ion-icon>
+              </h2>
+              <h2>
+                Punch Out: <br /><b>
+                  {{pt.PunchOutLocation }} - {{pt.PunchOutDateTime | date :
+                  'HH:mm'}}</b
+                >
+                <ion-icon
+                  (click)="ShowAddressInfo(pt.PunchOutLocation_Detail)"
+                  *ngIf="pt.PunchOutLocation_Detail && showOtherPunchInDetails"
+                  ios="ios-information-circle"
+                  md="md-information-circle"
+                ></ion-icon>
+              </h2>
+              <p>
+                Hours Worked :
+                <b
+                  >{{ pt.NumberOfWorkingHour }} hr {{ pt.NumberOfWorkingMin }}
+                  min</b
+                >
+              </p>
+            </div>
+            <div *ngIf="pt.PunchOutDateTime==pt.PunchInDateTime">
+              <p><b>Absent</b></p>
+            </div>
+          </div>
+
+          <div *ngIf="pt.TypeOfShift == 'Absent' && pt.IsNewEntry">
+            <p><b>Absent</b></p>
+          </div>
+
+          <div
+            class="indicator"
+            *ngIf="pt.TypeOfShift == 'Full'"
+            style="color: green;"
+          >
+            FD
+          </div>
+          <div
+            class="indicator"
+            *ngIf="pt.TypeOfShift == 'Half'"
+            style="color:brown"
+          >
+            HD
+          </div>
+          <div
+            class="indicator"
+            *ngIf="pt.TypeOfShift == 'Absent'"
+            style="color: red;"
+          >
+            A
+          </div>
+        </div>
+
+        <div *ngIf="pt.TypeOfShift == 'International Travel'">
+          <p><b>International Travel</b></p>
+          <div class="indicator" style="color: green;">FD</div>
+        </div>
+        <!-- <ion-icon name="create" (click)="EditPunchIn(pt)" *ngIf="!ShowSideMenuIcon"></ion-icon> -->
+        <!-- <span (click)="EditPunchIn(pt)" *ngIf="!ShowSideMenuIcon">Edit</span> -->
+
+        <span
+          (click)="EditPunchIn(pt)"
+          *ngIf="!ShowSideMenuIcon && pt.IsShowEditButton"
+          ><ion-icon name="create"></ion-icon>Edit
+        </span>
+
+        <!-- <button ion-button clear item-end>View</button> -->
+      </ion-item>
+      <ion-item *ngIf="PunchInList && PunchInList.length == 0" text-center>
+        No Data to display.
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

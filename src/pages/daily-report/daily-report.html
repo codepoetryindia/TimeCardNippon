@@ -1,0 +1,96 @@
+<!--
+  Generated template for the DailyReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>My Team Report</ion-title>
+    <!-- <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button> -->
+    <!-- <ion-title text-right>
+      <img width="125" src="assets/imgs/logo-nippon.png" />
+    </ion-title> -->
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    
+    <div class="sub-head">
+        Reportees
+      </div>
+
+  <div style="background: #fff;" >
+
+        <ion-segment color="primary" [(ngModel)]="TypeOfShit">
+          <ion-segment-button (click)="SelectCycle(2)" value="current">
+              Current cycle
+          </ion-segment-button>
+          
+          <ion-segment-button value="HALF" (click)="SelectCycle(1)" value="past">
+              Past  cycle
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+
+
+  <ion-list>
+    <!-- <ion-item >
+        <button item-end ion-button color="primary" >
+          
+            Current cycle
+         </button>
+       <button item-end ion-button color="secondary" >
+           
+           Past  cycle
+         </button>
+    </ion-item> -->
+
+    <div [ngSwitch]="TypeOfShit">
+ 
+          <div  *ngSwitchCase="'current'"> 
+                
+                
+                  <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="false" (ionClear)="onCancel($event)" (input)="search($event)">
+                  </ion-searchbar>
+                <ion-item *ngFor="let pt of EmployeeList">
+                    <h2>{{pt.Emp_First_name }}</h2>
+                    <p>{{ pt.EMP_CODE}}</p>
+                    <button item-end ion-button color="primary" (click)="ShowDetails(pt.EMP_CODE , pt.Emp_First_name)">
+                        
+                        Details
+                      </button>
+                    <button item-end ion-button color="secondary" (click)="ShowSummaryVisible(pt.EMP_CODE)">
+                        
+                        Summary
+                      </button>
+                  </ion-item>
+            </div> 
+
+            <div  *ngSwitchCase="'past'"> 
+                
+                
+                <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="false" (ionClear)="onCancel($event)" (input)="search($event)">
+                </ion-searchbar>
+              <ion-item *ngFor="let pt of EmployeeList">
+                  <h2>{{pt.Emp_First_name }}</h2>
+                  <p>{{ pt.EMP_CODE}}</p>
+                  <button item-end ion-button color="primary" (click)="ShowDetails(pt.EMP_CODE , pt.Emp_First_name)">
+                      
+                      Details
+                    </button>
+                  <button item-end ion-button color="secondary" (click)="ShowSummaryVisible(pt.EMP_CODE)">
+                      
+                      Summary
+                    </button>
+                </ion-item>
+          </div> 
+            
+     </div>
+
+  </ion-list>
+
+</ion-content>

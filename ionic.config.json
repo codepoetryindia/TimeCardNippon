@@ -1,0 +1,7 @@
+{
+  "name": "Nippon_TimeCard",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

@@ -1,0 +1,17 @@
+page-international-punch {
+  ion-item {
+    background: transparent !important;
+    border-bottom: 1px solid #fff !important;
+    .item-inner {
+      border-bottom: transparent !important;
+    }
+
+    ion-label {
+      color: #fff !important;
+    }
+
+    ion-datetime {
+      color: #fff !important;
+    }
+  }
+}

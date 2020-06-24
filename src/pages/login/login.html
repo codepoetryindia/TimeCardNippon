@@ -1,0 +1,114 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>LoginPage</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+
+
+<ion-content padding class="login-page">
+  <div class="logo">
+    <img src="assets/imgs/logo-nippon.png" />
+
+  </div>
+  <div class="login-form" *ngIf="LoginScreen == true">
+
+
+    <form [formGroup]="myForm" (ngSubmit)="login(myForm)" padding>
+      <!--<img src="./assets/images/wood-logo.png">-->
+      <ion-list inset>
+
+        <ion-item>
+          <ion-label floating>Username</ion-label>
+          <ion-input type="text" formControlName="username" name="username"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Password</ion-label>
+          <ion-input type="password" formControlName="password" name="password"></ion-input>
+        </ion-item>
+
+      </ion-list>
+
+      <div padding>
+        <button  ion-button block [disabled]="!myForm.valid">Sign In</button>
+      </div>
+    </form>
+    <p text-center (click)="ForgotPasswordScreen = true;LoginScreen = false;">Forgot password ?</p>
+  </div>
+
+
+
+  <div class="login-form" *ngIf="ForgotPasswordScreen == true">
+
+    <form [formGroup]="ForgotPasswordForm" (ngSubmit)="ValidateUsername_ForgotPasssword(ForgotPasswordForm)" padding>
+        <!--<img src="./assets/images/wood-logo.png">-->
+        <ion-list inset>
+  
+          <ion-item>
+            <ion-label floating>Username</ion-label>
+            <ion-input type="text" formControlName="username" name="username"></ion-input>
+          </ion-item>
+  
+        </ion-list>
+  
+        <div padding>
+          <button ion-button block [disabled]="!ForgotPasswordForm.valid">Send OTP</button>
+        </div>
+      </form>
+      <p text-center (click)="ResetScreen()">Sign In?</p>
+  </div>
+
+  <div class="login-form" *ngIf="ConfirmOTP == true">
+    
+        <form [formGroup]="OTPForm" (ngSubmit)="ValidateOTP(OTPForm)" padding>
+            <!--<img src="./assets/images/wood-logo.png">-->
+            <ion-list inset>
+      
+              <ion-item>
+                <ion-label floating>Enter OTP</ion-label>
+                <ion-input type="text" formControlName="OTP" name="OTP"></ion-input>
+              </ion-item>
+      
+            </ion-list>
+      
+            <div padding>
+              <button ion-button block [disabled]="!OTPForm.valid">Submit OTP</button>
+            </div>
+          </form>
+        <p text-center (click)="ResetScreen()">Sign In?</p>
+      </div>
+
+      <div class="login-form" *ngIf="ChangePasswordScreen == true">
+        
+            <form [formGroup]="ChangePasswordForm" (ngSubmit)="ChangePassword(ChangePasswordForm)" padding>
+                <!--<img src="./assets/images/wood-logo.png">-->
+                <ion-list inset>
+          
+                  <ion-item>
+                    <ion-label floating>New Password</ion-label>
+                    <ion-input type="text" formControlName="NewPassworrd" name="NewPassworrd"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label floating>Confirm Password</ion-label>
+                    <ion-input type="text" formControlName="ConfirmPassword" name="ConfirmPassword"></ion-input>
+                  </ion-item>
+          
+                </ion-list>
+          
+                <div padding>
+                  <button ion-button block [disabled]="!ChangePasswordForm.valid">Submit</button>
+                </div>
+              </form>
+              <p text-center (click)="ResetScreen()">Sign In?</p>
+          </div>
+</ion-content>

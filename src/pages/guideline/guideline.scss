@@ -1,0 +1,22 @@
+page-guideline {
+    td{
+        padding:5px;
+        // border:1px solid #000;
+        span{
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            background:transparent !important;
+            display: block;
+            margin: -5px -5px 5px -5px;
+            padding: 5px;
+            // border-bottom:1px solid #000;
+        }
+    }
+    .scroll-content{
+        // background: #fff !important;
+    }
+    .guideline-ul li{
+       margin-bottom:8px; 
+    }
+}

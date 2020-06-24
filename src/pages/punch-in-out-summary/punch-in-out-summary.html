@@ -1,0 +1,304 @@
+<!--
+  Generated template for the PunchInOutSummaryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <!-- *ngIf="ShowSideMenuIcon" -->
+    <ion-navbar>
+      <ion-title>
+        My Monthly Summary
+        <!-- Punch In/Out Summary -->
+      </ion-title>
+    </ion-navbar>
+
+    <!-- <ion-navbar *ngIf="!ShowSideMenuIcon">
+  
+      <button ion-button menuToggle >
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title text-right>
+        <img width="125" src="assets/imgs/logo-nippon.png" />
+      </ion-title>
+    </ion-navbar> -->
+  </ion-header>
+
+  <ion-content padding>
+    
+
+  <!-- <ion-card class="my-report-card" *ngIf="PunchInDetail">
+    <ion-card-header>
+      Attendance Cycle
+    </ion-card-header>
+  
+    <ion-list >
+      <button ion-item>
+        
+        Nos. of Eligible Working Days
+        <div item-end>{{PunchInDetail.NumberOfWorkingDays }} </div>
+      </button>
+  
+      <button ion-item>
+        
+        Full-day Present (in Days)
+        <div item-end>{{PunchInDetail.NumberOfFullDays }}</div>
+      </button>
+  
+      <button ion-item>
+        
+        Half-day present (in Days)
+        <div item-end>{{PunchInDetail.NumberOfHalfDays }}</div>
+      </button>
+  
+      <button ion-item>
+        
+        Absent (Days)
+        <div item-end>{{PunchInDetail.NumberOfAbsentDays }}</div>
+      </button>
+  
+      <button ion-item>
+        
+        Total Leaves availed / adjusted (Days)
+        <div item-end>5.5</div>
+      </button>
+
+    </ion-list>
+  </ion-card>
+
+
+
+  <ion-card class="my-report-card" *ngIf="PunchInDetail_HalfDay">
+      <ion-card-header >
+        Half Day Details
+        
+      </ion-card-header>
+    
+      <ion-list >
+        <button ion-item>
+          
+            Punch in After 11 hrs (Days)
+          <div item-end> {{PunchInDetail_HalfDay.Number_Of_Working_Days_More_than_Half_And_Punched_In_After_Relax_Time }}</div>
+        </button>
+    
+        <button ion-item>
+          
+            Working hours 4 hrs - 8.30 hrs (Days)
+            <div item-end> {{PunchInDetail_HalfDay.Number_Of_Working_Days_More_Than_Half_Day_Less_Than_Full_Day }}</div>
+        </button>
+    
+        <button ion-item>
+          
+            Total (Days)
+            <div item-end> {{PunchInDetail_HalfDay.NumberOfHalfDays }}</div>
+        </button>
+    
+        <button ion-item>
+          
+            Nos. of Leaves availed / adjusted (Days)
+          <div item-end>0.5</div>
+        </button>
+  
+      </ion-list>
+  </ion-card>
+
+
+
+  <ion-card class="my-report-card" *ngIf="PunchInDetail_Absent">
+      <ion-card-header>
+          Absent
+        
+      </ion-card-header>
+    
+      <ion-list>
+        <button ion-item>
+          
+            Working hours Less than 4 hrs.(Days)
+            <div item-end> {{PunchInDetail_Absent.NumberOfAbsentDays_WithWorkingHoursLessThanHalfDay }}</div>
+        </button>
+    
+        <button ion-item>
+          
+            NO Punch-In (Days)
+            <div item-end> {{PunchInDetail_Absent.NumberOfAbsentDays_NoPunchInDay }}</div>
+        </button>
+    
+        <button ion-item>
+          
+            Total (Days)
+            <div item-end> {{PunchInDetail_Absent.NumberOfAbsentDays }}</div>
+        </button>
+    
+        <button ion-item>
+          
+            Nos. of Leaves availed / adjusted (Days)
+          <div item-end>5</div>
+        </button>
+  
+      </ion-list>
+</ion-card> -->
+
+
+
+
+
+  <ion-list *ngIf="PunchInDetail">
+
+
+    <ion-card class="my-report-card">
+      <ion-card-header (click)="toggleDetails(PunchInDetail , PunchInDetail_HalfDay  , PunchInDetail_Absent)">
+        Attendance Cycle
+        <ion-icon color="primary" item-end [name]="PunchInDetail.icon" style="float: right;"></ion-icon>
+      </ion-card-header>
+
+      <ion-list *ngIf="PunchInDetail.showDetails">
+          <button ion-item *ngIf="PunchInDetail.TotalWorkingDays!=0">
+          
+              Total Working Days
+              <div item-end>{{PunchInDetail.TotalWorkingDays }} </div>
+            </button>
+        
+        <button ion-item>
+          
+          Nos. of Eligible Working Days
+          <div item-end>{{PunchInDetail.NumberOfWorkingDays }} </div>
+        </button>
+
+        <button ion-item>
+          
+          Full-day Present (in Days)
+          <div item-end>{{PunchInDetail.NumberOfFullDays }}</div>
+        </button>
+
+        <button ion-item>
+          
+          Half-day present (in Days)
+          <div item-end>{{PunchInDetail.NumberOfHalfDays }}</div>
+        </button>
+
+        <button ion-item>
+          
+          Absent (Days)
+          <div item-end>{{PunchInDetail.NumberOfAbsentDays }}</div>
+        </button>
+        <button ion-item *ngIf="PunchInDetail.NumberOfNonWorkingDay!=0">
+          
+           Worked on Holiday (Days)
+            <div item-end>{{ PunchInDetail.NumberOfNonWorkingDay}}</div>
+          </button>
+          
+        <button ion-item>
+          
+          Total Leaves availed / adjusted (Days)
+          <div item-end>{{ PunchInDetail.NumberOfLeavesAdjusted}}</div>
+        </button>
+
+      </ion-list>
+    </ion-card>
+
+
+    <ion-card class="my-report-card">
+      <ion-card-header padding (click)="toggleDetails(PunchInDetail_HalfDay  , PunchInDetail_Absent, PunchInDetail)">
+
+        Half Day Details
+        <ion-icon color="primary" item-end [name]="PunchInDetail_HalfDay.icon" style="float: right;"></ion-icon>
+      </ion-card-header>
+      <ion-list *ngIf="PunchInDetail_HalfDay.showDetails">
+        <button ion-item>
+                
+                  Punch in After {{ WorkingHourDetail.EndRelaxTime   }} (Days)
+                <div item-end> {{PunchInDetail_HalfDay.Number_Of_Days_With_Punch_In_Time_After_Relax_Time_Ends }}</div>
+              </button>
+
+        <button ion-item>
+                
+                  Working hours  {{ WorkingHourDetail.WorkingHour_HalfDay }}  Hours - {{ WorkingHourDetail.WorkingHour_FullDay }} Hours (Days)
+                  <div item-end> {{PunchInDetail_HalfDay.Number_Of_Days_With_More_Than_Half_Day_Hours_Less_Than_Full_Day_Hours }}</div>
+              </button>
+
+        <button ion-item>
+                
+                  Total (Days)
+                  <div item-end> {{PunchInDetail_HalfDay.NumberOfHalfDays }}</div>
+              </button>
+
+        <button ion-item>
+                
+                  Nos. of Leaves availed / adjusted (Days)
+                <div item-end>{{ PunchInDetail_HalfDay.NumberOfLeavesAdjusted}}</div>
+              </button>
+      </ion-list>
+    </ion-card>
+
+
+
+    <ion-card class="my-report-card" >
+      <ion-card-header padding (click)="toggleDetails(PunchInDetail_Absent , PunchInDetail , PunchInDetail_HalfDay)">
+          Absent
+          <ion-icon color="primary" item-end [name]="PunchInDetail_Absent.icon" style="float: right;"></ion-icon>
+      </ion-card-header>
+    
+      <ion-list *ngIf="PunchInDetail_Absent.showDetails">
+        <button ion-item>
+                  Working hours Less than  {{ WorkingHourDetail.WorkingHour_HalfDay }}  Hours.(Days)
+                  <div item-end> {{PunchInDetail_Absent.Number_Days_With_Less_Than_Half_Day_Hours }}</div>
+              </button>
+
+        <button ion-item>
+                
+                  NO Punch-In (Days)
+                  <div item-end> {{PunchInDetail_Absent.NumberOfAbsentDays_NoPunchInDay }}</div>
+              </button>
+
+        <button ion-item>
+                
+                  Total (Days)
+                  <div item-end> {{PunchInDetail_Absent.NumberOfAbsentDays }}</div>
+              </button>
+
+        <button ion-item>
+                
+                  Nos. of Leaves availed / adjusted (Days)
+                <div item-end> {{ PunchInDetail_Absent.NumberOfLeavesAdjusted}}</div>
+              </button>
+            </ion-list>
+          </ion-card> 
+
+  </ion-list>
+  <!-- *ngIf="MonthWiseData && ShowSideMenuIcon" -->
+  <ion-card class="my-report-card">
+      <ion-grid style="text-align:center">
+        <ion-row>
+          <ion-col>
+            Pay Roll Cycle (16 to 15th)
+          </ion-col>
+          <ion-col>
+            Full Day
+          </ion-col>
+          <ion-col>
+            Half Day
+          </ion-col>
+          <ion-col>
+            Absent
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let pt of MonthWiseData">
+          <ion-col>
+            {{pt.FromMonth | date:"MMM"}} - {{pt.ToMonth | date:"MMM"}}
+          </ion-col>
+          <ion-col>
+            {{pt.FullDay==0 && pt.HalfDay==0 && pt.AbsentDay?"NA":pt.FullDay}}
+          </ion-col>
+          <ion-col>
+              {{pt.FullDay==0 && pt.HalfDay==0 && pt.AbsentDay?"NA":pt.HalfDay}}
+          
+          </ion-col>
+          <ion-col>
+              {{pt.FullDay==0 && pt.HalfDay==0 && pt.AbsentDay?"NA":pt.AbsentDay}}
+            
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    
+</ion-content>
